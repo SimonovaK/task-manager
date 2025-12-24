@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Менеджер Задач</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tasks"></i> Менеджер Задач</h1>
+            <p class="subtitle">Эффективное управление задачами и сроками</p>
+        </header>
+
+        <main>
+            <section class="task-form">
+                <h2>Добавить новую задачу</h2>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="title">Название *</label>
+                        <input type="text" id="title" name="title" required 
+                               placeholder="Что нужно сделать?">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Описание</label>
+                        <textarea id="description" name="description" 
+                                  placeholder="Детали задачи..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="deadline">Срок выполнения (необязательно)</label>
+                        <input type="date" id="deadline" name="deadline">
+                        <small class="date-hint">Срок не может быть в прошлом</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-plus"></i> Добавить задачу
+                        </button>
+                        <div id="formError" class="error-message"></div>
+                    </div>
+                </form>
+            </section>
+
+            <section class="task-controls">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-list"></i> Все задачи
+                    </button>
+                    <button class="filter-btn" data-filter="active">
+                        <i class="fas fa-clock"></i> Активные
+                    </button>
+                    <button class="filter-btn" data-filter="completed">
+                        <i class="fas fa-check-circle"></i> Выполненные
+                    </button>
+                    <button class="filter-btn" data-filter="near-deadline">
+                        <i class="fas fa-exclamation-circle"></i> Срочные
+                    </button>
+                </div>
+                
+                <div class="stats">
+                    <span id="taskCount">0 задач</span>
+                    <span id="activeCount">0 активных</span>
+                </div>
+            </section>
+
+            <section class="tasks-section">
+                <div id="loading" class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Загрузка задач...
+                </div>
+                
+                <div id="errorMessage" class="error-message hidden"></div>
+                
+                <ul id="taskList" class="task-list">
+                </ul>
+                
+                <div id="noTasks" class="no-tasks hidden">
+                    <i class="fas fa-clipboard-list"></i>
+                    <h3>Задач пока нет</h3>
+                    <p>Добавьте первую задачу используя форму выше!</p>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Менеджер Задач &copy; 2024 | Полноценное веб-приложение</p>
+        </footer>
+    </div>
+
+    <div id="editModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Редактировать задачу</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editForm">
+                    <input type="hidden" id="editId">
+                    
+                    <div class="form-group">
+                        <label for="editTitle">Название *</label>
+                        <input type="text" id="editTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editDescription">Описание</label>
+                        <textarea id="editDescription"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editDeadline">Срок выполнения (необязательно)</label>
+                        <input type="date" id="editDeadline">
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="editIsDone">
+                            <span>Отметить как выполненную</span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Сохранить изменения
+                        </button>
+                        <button type="button" class="btn btn-secondary close-modal">
+                            Отмена
+                        </button>
+                        <div id="editError" class="error-message"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
