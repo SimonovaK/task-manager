@@ -13,6 +13,37 @@ const editModal = document.getElementById('editModal');
 const editForm = document.getElementById('editForm');
 const editErrorElement = document.getElementById('editError');
 
+function createSnowflakes() {
+    const snowflakesContainer = document.getElementById('snowflakes');
+    
+    if (!snowflakesContainer) {
+        console.error('Snowflakes container not found! Check HTML');
+        return;
+    }
+    
+    const snowflakeCount = 30;
+    const snowflakeChars = ['❄', '❅', '❆', '✦', '*'];
+    
+    for (let i = 0; i < snowflakeCount; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        snowflake.textContent = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+        
+        snowflake.style.left = Math.random() * 100 + 'vw';
+        snowflake.style.fontSize = (0.5 + Math.random() * 1.5) + 'em';
+        
+        const duration = 3 + Math.random() * 7;
+        const delay = Math.random() * 5;
+        snowflake.style.animation = `fall ${duration}s linear ${delay}s infinite`;
+        
+        snowflake.style.opacity = 0.3 + Math.random() * 0.7;
+        
+        snowflakesContainer.appendChild(snowflake);
+    }
+    
+    console.log('Snowflakes created:', snowflakesContainer.children.length);
+}
+
 function formatDate(dateString) {
     if (!dateString) return 'Без срока';
     
@@ -416,6 +447,8 @@ async function init() {
             closeEditModal();
         }
     });
+
+    createSnowflakes();
     
     await loadTasks();
 }

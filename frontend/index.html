@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <div id="snowflakes"></div>
+
     <div class="container">
         <header>
-            <h1><i class="fas fa-tasks"></i> Менеджер Задач</h1>
+            <h1><i class="fas fa-tree"></i> Менеджер Задач</h1>
             <p class="subtitle">Эффективное управление задачами и сроками</p>
         </header>
 
@@ -48,10 +50,10 @@
             <section class="task-controls">
                 <div class="filter-buttons">
                     <button class="filter-btn active" data-filter="all">
-                        <i class="fas fa-list"></i> Все задачи
+                        <i class="fas fa-gifts"></i> Все задачи
                     </button>
                     <button class="filter-btn" data-filter="active">
-                        <i class="fas fa-clock"></i> Активные
+                        <i class="fas fa-sleigh"></i> Активные
                     </button>
                     <button class="filter-btn" data-filter="completed">
                         <i class="fas fa-check-circle"></i> Выполненные
@@ -126,7 +128,7 @@
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save"></i> Сохранить изменения
                         </button>
-                        <button type="button" class="btn btn-secondary close-modal">
+                        <button type="button" class="btn btn-secondary" onclick="closeEditModal()">
                             Отмена
                         </button>
                         <div id="editError" class="error-message"></div>
@@ -135,7 +137,6 @@
             </div>
         </div>
     </div>
-
     <script src="api.js"></script>
     <script src="app.js"></script>
 </body>
