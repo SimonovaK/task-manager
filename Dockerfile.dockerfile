@@ -16,4 +16,4 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 COPY backend/ ./backend/
 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "10000"]
+CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "10000"]
