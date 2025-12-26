@@ -4,6 +4,35 @@ from sqlalchemy.orm import Session
 from typing import List
 from . import crud, models, schemas
 from .database import SessionLocal, engine, init_db
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+import os
+from pathlib import Path
+
+BASE_DIR = Path(__file__).parent.parent.parent
+
+FRONTEND_DIR = BASE_DIR / "frontend"
+
+app.mount("/static", StaticFiles(directory=str(FRONTEND_DIR)), name="static")
+
+@app.get("/")
+async def read_index():
+    index_path = FRONTEND_DIR / "index.html"
+    if index_path.exists():
+        return FileResponse(str(index_path))
+    return {"message": "Task Manager API запущен (frontend не найден)"}
+
+@app.get("/{full_path:path}")
+async def serve_spa(full_path: str):
+    file_path = FRONTEND_DIR / full_path
+    if file_path.exists() and file_path.is_file():
+        return FileResponse(str(file_path))
+    
+    index_path = FRONTEND_DIR / "index.html"
+    if index_path.exists():
+        return FileResponse(str(index_path))
+    
+    return {"error": "Not found"}, 404
 
 init_db()
 
