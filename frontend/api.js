@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:8000';
+const API_URL = window.location.origin + '/api';
 
 async function makeRequest(endpoint, method = 'GET', data = null) {
     const options = {
